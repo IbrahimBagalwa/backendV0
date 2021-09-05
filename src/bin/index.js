@@ -19,7 +19,8 @@ app.use('*', (req, res) => {
       status: 404,
       error: `${req.method}=${req.protocol}://${req.headers.host}${req.originalUrl} not found`,
     });
-  });
+});
+
 const port = process.env.PORT || 8000;
 app.listen(port, ()=>{
     console.log(`the server run on port ${port} success`)
