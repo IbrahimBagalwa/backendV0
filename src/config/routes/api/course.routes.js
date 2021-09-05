@@ -4,3 +4,6 @@ const route = express.Router();
 
 route
     .post('/createCourse', ctrl.create)
+
+
+export default route;
