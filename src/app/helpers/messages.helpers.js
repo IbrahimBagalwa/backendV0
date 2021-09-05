@@ -31,6 +31,7 @@ export const errorMessages ={
     phoneFail: 'Désolé !\nVous avez fourni un mauvais numero, veuillez réessayer !',
     fieldValidation : 'Veuillez remplir tous les champs obligatoires',
     duplicatedPhone: 'le numero entrer a déjà été pris !',
+    duplicatedCourse: 'le numero entrer a déjà été pris !',
     duplicatedEmail: 'l\'email entrer a déjà été pris !',
     interError: 'Une Erreur interne est survenue',
 }
