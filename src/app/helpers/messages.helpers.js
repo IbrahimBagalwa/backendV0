@@ -2,7 +2,7 @@
 
 export const successMessages = {
     accountCreate : "Votre compte a été créé avec success !",
-    houseCreate : "La maison a été créée avec success !",
+    courseCreate : "Le cours a été créée avec success !",
     roleCreate : "Le role a été créé avec success !",
     roleAssignedSuccess : "Le rôle a été attribué avec succès !",
     loginSuccess : "Connecté avec succès!",
