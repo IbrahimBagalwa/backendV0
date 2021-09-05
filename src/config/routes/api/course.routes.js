@@ -5,6 +5,8 @@ const route = express.Router();
 
 route
     .post('/create', validate.register, ctrl.register)
+    .put('/update/:id', ctrl.update)
+    .get('/all',ctrl.all)
 
 
 export default route;

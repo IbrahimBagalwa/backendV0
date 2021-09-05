@@ -55,7 +55,7 @@ export default {
     },
     all: async(req, res)=>{
         try {
-            await db.Cours.findOne({
+            await db.Cours.findAll({
                 where: {
                     datastus: process.env.AP_DATASTATUS
                 }
