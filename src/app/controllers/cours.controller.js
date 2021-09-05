@@ -1,7 +1,14 @@
 import db from '../models';
 import dotenv from 'dotenv';
+import { sendErrorResponse, sendSuccessResponse } from '../helpers/responses.helpers';
+import { errorMessages, successMessages } from '../helpers/messages.helpers';
+import {errorCodes, successCodes} from '../helpers/statusCodes.helper';
 dotenv.config();
 
+const {created} = successCodes;
+const {courseCreate} = successMessages;
+const {conflict} = errorCodes;
+const {duplicatedCourse} = errorMessages;
 export default {
     create: async (req, res)=>{
         const { nom,cotation,idClasse,titulaire,heure,datastus,createdon,modifiedby,deleteby } = req.body;
@@ -17,8 +24,12 @@ export default {
                 modifiedby: process.env.DB_UNACTIVE,
                 deleteby: process.env.DB_UNACTIVE
             })
-        } catch (error) {
+            if(createCourse instanceof Cours)
+                sendSuccessResponse(res,created,courseCreate,null,createCourse);
+            else sendSuccessResponse(res, conflict,duplicatedCourse,null,{nom, idClasse,titulaire})
             
+        } catch (error) {
+            sendSuccessResponse(res, internalServerError,interError,null,error);
         }
     }
 }
