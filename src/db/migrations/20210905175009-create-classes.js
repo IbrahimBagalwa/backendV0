@@ -14,9 +14,6 @@ module.exports = {
       titulaire: {
         type: Sequelize.STRING
       },
-      idEleve: {
-        type: Sequelize.INTEGER
-      },
       createdon: {
         type: Sequelize.STRING
       },
