@@ -23,7 +23,7 @@ export default {
                 idClasse,
                 titulaire,
                 heure:process.env.AP_UNACTIVE,
-                datastus: process.env.AP_DATASTATUS,
+                datastatus: process.env.AP_DATASTATUS,
                 createdon: process.env.AP_UNACTIVE,
                 modifiedby: process.env.AP_UNACTIVE,
                 deleteby: process.env.AP_UNACTIVE
