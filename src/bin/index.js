@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const app = express();
-import {sendSuccessResponse} from '../app/helpers/responses.helpers';
-import {ok} from '../app/helpers/statusCodes.helper';
-import {welcome} from '../app/helpers/messages.helpers';
+import {sendSuccessResponse} from '../app/helpers/responses.helpers.js';
+import {successCodes} from '../app/helpers/statusCodes.helper.js';
+import {successMessages} from '../app/helpers/messages.helpers.js';
 
 const {ok} = successCodes;
 const {welcome} = successMessages;
