@@ -5,10 +5,11 @@ import { errorMessages, successMessages } from '../helpers/messages.helpers';
 import {errorCodes, successCodes} from '../helpers/statusCodes.helper';
 dotenv.config();
 
-const {created, ok, updateSuccess} = successCodes;
-const {courseCreate} = successMessages;
-const {conflict,internalServerError,badRequest} = errorCodes;
-const {duplicatedCourse,interError,updateFail} = errorMessages;
+const {created, ok} = successCodes;
+const {courseCreate,updateSuccess,recordFound} = successMessages;
+
+const {conflict,internalServerError,badRequest,notFound} = errorCodes;
+const {duplicatedCourse,interError,updateFail,noRecordFound} = errorMessages;
 export default {
     register: async (req, res)=>{
         const { nom,cotation,idClasse,titulaire,heure,datastus,createdon,modifiedby,deleteby } = req.body;
@@ -49,7 +50,24 @@ export default {
                 sendErrorResponse(res, badRequest, updateFail)
             })
         } catch (error) {
-           sendSuccessResponse(res, internalServerError, interError, null, null) 
+           sendSuccessResponse(res, internalServerError, interError, null, error) 
+        }
+    },
+    all: async(req, res)=>{
+        try {
+            await db.Cours.findOne({
+                where: {
+                    datastus: process.env.AP_DATASTATUS
+                }
+            })
+            .then((data)=>{
+                sendSuccessResponse(res,ok,recordFound,null, data)
+            }) 
+            .catch((err)=>{
+                sendErrorResponse(res,notFound,noRecordFound)
+            }) 
+        } catch (error) {
+            sendSuccessResponse(res,internalServerError, interError,null, error)
         }
     }
 }
