@@ -5,10 +5,10 @@ import { errorMessages, successMessages } from '../helpers/messages.helpers';
 import {errorCodes, successCodes} from '../helpers/statusCodes.helper';
 dotenv.config();
 
-const {created} = successCodes;
+const {created, ok, updateSuccess} = successCodes;
 const {courseCreate} = successMessages;
-const {conflict,internalServerError} = errorCodes;
-const {duplicatedCourse,interError} = errorMessages;
+const {conflict,internalServerError,badRequest} = errorCodes;
+const {duplicatedCourse,interError,updateFail} = errorMessages;
 export default {
     register: async (req, res)=>{
         const { nom,cotation,idClasse,titulaire,heure,datastus,createdon,modifiedby,deleteby } = req.body;
@@ -34,6 +34,22 @@ export default {
         } catch (error) {
             console.log(error)
             sendSuccessResponse(res, internalServerError,interError,null,error);
+        }
+    },
+    update: async(req, res)=>{
+        const id = req.params.id;
+        try {
+            await db.Cours.update(req.body, 
+                { where:{id:id}}
+            )
+            .then((data)=>{
+                sendSuccessResponse(res, ok, updateSuccess, null, data)
+            })
+            .catch((err)=>{
+                sendErrorResponse(res, badRequest, updateFail)
+            })
+        } catch (error) {
+           sendSuccessResponse(res, internalServerError, interError, null, null) 
         }
     }
 }
