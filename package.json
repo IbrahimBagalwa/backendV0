@@ -2,10 +2,10 @@
   "name": "backendv0",
   "version": "1.0.0",
   "description": "",
-  "main": "src/bin/index.js",
-  "type": "module",
+  "main": "./src/bin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --exec babel-node ./src/bin/index.js",
+    "dev": "nodemon --exec babel-node ./src/bin/index.js"
   },
   "repository": {
     "type": "git",
