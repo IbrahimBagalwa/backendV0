@@ -64,7 +64,6 @@ export default {
             await db.Cours.findAll({
                 where: {
                     datastatus: process.env.AP_DATASTATUS
-                    
                 },
                 include: ['Class']
             })
