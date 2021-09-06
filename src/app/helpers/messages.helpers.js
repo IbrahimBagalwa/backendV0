@@ -25,7 +25,7 @@ export const errorMessages ={
     loginFail: 'Désolé !\nVous avez fourni un mauvais numero ou un mot de passe erroné, veuillez réessayer !',
     noRecordFound: 'Aucune données enregistrement n\'a été trouvé !',
     deleteRecordFail: 'Échec de la suppression de l\'enregistrement, réessayez !',
-    roleCreateFail: 'Échec de la création de la cart, réessayez !',
+    classCreateFail: 'Échec de la création de la classe, réessayez !',
     updateFail: 'Échec de la mise à jour de l\'enregistrement, veuillez réessayer !',
     recordCreateFail: 'Échec de la création de l\'enregistrement, veuillez réessayer !',
     passwordFail:'Mot de passe incorrect, veuillez réessayer !!',
