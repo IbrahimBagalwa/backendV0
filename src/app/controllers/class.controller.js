@@ -5,11 +5,11 @@ import { errorCodes, successCodes } from '../helpers/statusCodes.helper';
 import { errorMessages, successMessages } from '../helpers/messages.helpers';
 
 dotenv.config();
-const {created} = successCodes;
-const {classCreate} = successMessages;
+const {created, ok} = successCodes;
+const {classCreate, updateSuccess} = successMessages;
 
 const {internalServerError, badRequest} = errorCodes;
-const {interError, classCreateFail} = errorMessages;
+const {interError, classCreateFail, updateFail} = errorMessages;
 
 export default {
     register: async (req, res)=>{
@@ -30,6 +30,22 @@ export default {
                 sendErrorResponse(res, badRequest, classCreateFail);      
         } catch (error) {
             sendErrorResponse(res,internalServerError, interError);
+        }
+    },
+    update: async (req,res) =>{
+        const id = req.params.id;
+        try {
+            await db.Classes.update(req.body, {
+                where: {id:id}
+            })
+            .then((data)=>{
+                sendSuccessResponse(res, ok, updateSuccess, null, data);
+            })
+            .catch((err)=>{
+                sendErrorResponse(res, badRequest, updateFail);
+            })
+        } catch (error) {
+            sendErrorResponse(res, internalServerError, interError);
         }
     }
 }
