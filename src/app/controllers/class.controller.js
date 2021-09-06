@@ -19,7 +19,7 @@ export default {
             const createCourse = db.Classes.create({
                 nom,
                 titulaire,
-                createdon: now,
+                createdon: process.env.AP_UNACTIVE,
                 datastatus: process.env.AP_DATASTATUS,
                 modifiedby: process.env.AP_UNACTIVE,
                 deleteby: process.env.AP_UNACTIVE
