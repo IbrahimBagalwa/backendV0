@@ -58,7 +58,7 @@ export default {
                     datastatus:process.env.AP_DATASTATUS
                 }
             })
-            if(allClass instanceof db.Classes)
+            if(allClass)
                 sendSuccessResponse(res, ok, recordFound, null, allClass)
             else
                 sendErrorResponse(res,notFound, noRecordFound)
