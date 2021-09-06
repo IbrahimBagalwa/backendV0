@@ -31,7 +31,7 @@ export default {
             })
             if(createCourse instanceof db.Cours)
                 sendSuccessResponse(res,created,courseCreate,null,createCourse);
-            else sendSuccessResponse(res, conflict,duplicatedCourse,null,{nom, idClasse,titulaire})
+            else sendSuccessResponse(res, conflict,duplicatedCourse,null,{nom, idclass,titulaire})
             
         } catch (error) {
             console.log(error)
@@ -93,6 +93,7 @@ export default {
             }
 
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res,internalServerError,interError)
         }
     }
