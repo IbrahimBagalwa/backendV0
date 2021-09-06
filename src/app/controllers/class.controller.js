@@ -1,4 +1,5 @@
 import db from '../models';
+import {Op} from 'sequelize';
 import dotenv from 'dotenv';
 import { sendErrorResponse, sendSuccessResponse } from '../helpers/responses.helpers';
 import { errorCodes, successCodes } from '../helpers/statusCodes.helper';
@@ -71,8 +72,7 @@ export default {
         try {
             const classSearch = await db.Classes.findAll({
                 where:{      
-                    [Op.or]:
-                    [
+                    [Op.or]:[
                         {nom: {[Op.substring]: query}}
                     ]
                 }

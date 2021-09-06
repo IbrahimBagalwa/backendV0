@@ -1,4 +1,5 @@
 import db from '../models';
+import {Op} from 'sequelize';
 import dotenv from 'dotenv';
 import { sendErrorResponse, sendSuccessResponse } from '../helpers/responses.helpers';
 import { errorMessages, successMessages } from '../helpers/messages.helpers';
@@ -73,6 +74,26 @@ export default {
             }) 
         } catch (error) {
             sendSuccessResponse(res,internalServerError, interError,null, error)
+        }
+    },
+    search : async (req,res)=>{
+        const { query } = req.body;
+        try {
+            const searchCourse = await db.Cours.findAll({
+                where:{
+                    [Op.or]:[
+                        {nom: {[Op.substring]: query}}
+                    ]
+                }
+            });
+            if(searchCourse){
+                sendSuccessResponse(res,ok, recordFound, null, searchCourse);
+            }else{
+                sendErrorResponse(res, notFound, noRecordFound);
+            }
+
+        } catch (error) {
+            sendErrorResponse(res,internalServerError,interError)
         }
     }
 }
