@@ -12,7 +12,7 @@ const {conflict,internalServerError,badRequest,notFound} = errorCodes;
 const {duplicatedCourse,interError,updateFail,noRecordFound} = errorMessages;
 export default {
     register: async (req, res)=>{
-        const { nom,cotation,idClasse,titulaire,heure,datastus,createdon,modifiedby,deleteby } = req.body;
+        const { nom,cotation,idclass,titulaire,heure,datastatus,createdon,modifiedby,deleteby } = req.body;
         const now = new Date();
         // let creat = formatDate('yyyy-MM-dd hh:mm:ss', new Date());
         // let date = formatDate('yyyy-mm-dd-hh-MM-ss', new Date());
@@ -20,7 +20,7 @@ export default {
             const createCourse = await db.Cours.create({
                 nom,
                 cotation,
-                idClasse,
+                idclass,
                 titulaire,
                 heure:process.env.AP_UNACTIVE,
                 datastatus: process.env.AP_DATASTATUS,
@@ -39,16 +39,21 @@ export default {
     },
     update: async(req, res)=>{
         const id = req.params.id;
+        const { nom,cotation,idclass,titulaire,heure,datastatus,createdon,modifiedby,deleteby } = req.body;
         try {
-            await db.Cours.update(req.body, 
-                { where:{id:id}}
-            )
-            .then((data)=>{
+            const course = await db.Cours.findOne({where: {id:id}});
+            const updated = await course.update({
+                nom:nom || course.nom,
+                titulaire: titulaire || course.titulaire,
+                cotation : cotation || course.cotation,
+                idclass : idclass || course.idclass,
+                heure : heure || course.heure
+            })
+            if(updated)
                 sendSuccessResponse(res, ok, updateSuccess, null, data)
-            })
-            .catch((err)=>{
+            else
                 sendErrorResponse(res, badRequest, updateFail)
-            })
+           
         } catch (error) {
            sendSuccessResponse(res, internalServerError, interError, null, error) 
         }
@@ -57,7 +62,7 @@ export default {
         try {
             await db.Cours.findAll({
                 where: {
-                    datastus: process.env.AP_DATASTATUS
+                    datastatus: process.env.AP_DATASTATUS
                 }
             })
             .then((data)=>{
