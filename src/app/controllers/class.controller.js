@@ -56,14 +56,17 @@ export default {
         try {
            const allClass = await db.Classes.findAll({
                 where: {
-                    datastatus:process.env.AP_DATASTATUS
-                }
+                    datastatus:process.env.AP_DATASTATUS,
+                },
+                include: ['Cours']
+               
             })
             if(allClass)
                 sendSuccessResponse(res, ok, recordFound, null, allClass)
             else
                 sendErrorResponse(res,notFound, noRecordFound)
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError)
         }
     },

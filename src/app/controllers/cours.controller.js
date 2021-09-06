@@ -64,7 +64,9 @@ export default {
             await db.Cours.findAll({
                 where: {
                     datastatus: process.env.AP_DATASTATUS
-                }
+                    
+                },
+                include: ['Class']
             })
             .then((data)=>{
                 sendSuccessResponse(res,ok,recordFound,null, data)
@@ -75,6 +77,21 @@ export default {
         } catch (error) {
             sendSuccessResponse(res,internalServerError, interError,null, error)
         }
+    },
+    getCourseByClass: async(req,res)=>{
+        const ClassId = req.params.ClassId;
+      try {
+        const courses = await db.Cours.findAll({
+            where: {ClassId: ClassId}
+        })
+        if(courses){
+            sendSuccessResponse(res, ok, recordFound, null, courses)
+        }else{
+            sendErrorResponse(res,notFound,noRecordFound)
+        }
+      } catch (error) {
+        sendErrorResponse(res, internalServerError, interError)
+      }
     },
     search : async (req,res)=>{
         const { query } = req.body;
@@ -93,7 +110,7 @@ export default {
             }
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             sendErrorResponse(res,internalServerError,interError)
         }
     }

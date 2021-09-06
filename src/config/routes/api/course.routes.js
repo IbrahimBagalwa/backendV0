@@ -8,6 +8,7 @@ route
     .put('/update/:id', ctrl.update)
     .get('/all',ctrl.all)
     .post('/search', ctrl.search)
+    .get('/course-class/:ClassId',ctrl.getCourseByClass)
 
 
 export default route;
