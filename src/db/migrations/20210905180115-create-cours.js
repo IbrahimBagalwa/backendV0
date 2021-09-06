@@ -17,7 +17,7 @@ module.exports = {
       cotation: {
         type: Sequelize.INTEGER
       },
-      idclass: {
+      ClassId: {
         type: Sequelize.INTEGER
       },
       heure: {

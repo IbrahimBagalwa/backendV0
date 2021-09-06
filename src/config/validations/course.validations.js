@@ -13,7 +13,7 @@ const courseValidation ={
             nom:joi.string().min(3).max(60).required(),
             cotation:joi.number().required(),
             titulaire:joi.string().min(3).max(50),
-            idclass: joi.number().required()
+            ClassId: joi.number().required()
         });
         const {error} = schema.validate(req.body);
         if (error) {

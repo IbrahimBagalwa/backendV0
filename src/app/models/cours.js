@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Classes.hasMany(Cours, { as: "Cours", foreignKey: "idclass" });
+      models.Classes.hasMany(Cours, { as: "Cours", foreignKey: "ClassId" });
       Cours.belongsTo(models.Classes);
     }
   };
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     nom: DataTypes.STRING,
     titulaire: DataTypes.STRING,
     cotation: DataTypes.INTEGER,
-    idclass: DataTypes.INTEGER,
+    ClassId: DataTypes.INTEGER,
     heure: DataTypes.INTEGER,
     createdon: DataTypes.STRING,
     datastatus: DataTypes.INTEGER,

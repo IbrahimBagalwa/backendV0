@@ -13,7 +13,7 @@ const {conflict,internalServerError,badRequest,notFound} = errorCodes;
 const {duplicatedCourse,interError,updateFail,noRecordFound} = errorMessages;
 export default {
     register: async (req, res)=>{
-        const { nom,cotation,idclass,titulaire,heure,datastatus,createdon,modifiedby,deleteby } = req.body;
+        const { nom,cotation,ClassId,titulaire,heure,datastatus,createdon,modifiedby,deleteby } = req.body;
         const now = new Date();
         // let creat = formatDate('yyyy-MM-dd hh:mm:ss', new Date());
         // let date = formatDate('yyyy-mm-dd-hh-MM-ss', new Date());
@@ -21,7 +21,7 @@ export default {
             const createCourse = await db.Cours.create({
                 nom,
                 cotation,
-                idclass,
+                ClassId,
                 titulaire,
                 heure:process.env.AP_UNACTIVE,
                 datastatus: process.env.AP_DATASTATUS,
@@ -31,7 +31,7 @@ export default {
             })
             if(createCourse instanceof db.Cours)
                 sendSuccessResponse(res,created,courseCreate,null,createCourse);
-            else sendSuccessResponse(res, conflict,duplicatedCourse,null,{nom, idclass,titulaire})
+            else sendSuccessResponse(res, conflict,duplicatedCourse,null,{nom, ClassId,titulaire})
             
         } catch (error) {
             console.log(error)
@@ -40,14 +40,14 @@ export default {
     },
     update: async(req, res)=>{
         const id = req.params.id;
-        const { nom,cotation,idclass,titulaire,heure,datastatus,createdon,modifiedby,deleteby } = req.body;
+        const { nom,cotation,ClassId,titulaire,heure,datastatus,createdon,modifiedby,deleteby } = req.body;
         try {
             const course = await db.Cours.findOne({where: {id:id}});
             const updated = await course.update({
                 nom:nom || course.nom,
                 titulaire: titulaire || course.titulaire,
                 cotation : cotation || course.cotation,
-                idclass : idclass || course.idclass,
+                ClassId : ClassId || course.ClassId,
                 heure : heure || course.heure
             })
             if(updated)
