@@ -33,18 +33,21 @@ export default {
         }
     },
     update: async (req,res) =>{
+        const {nom, titulaire, createdon, datastatus, modifiedby, deleteby} = req.body;
         const id = req.params.id;
         try {
-            await db.Classes.update(req.body, {
-                where: {id:id}
+           const classes = await db.Classes.findOne({where: {id:id}});
+           const updated = await classes.update({
+                nom : nom || classes.nom,
+                titulaire: titulaire || classes.titulaire
             })
-            .then((data)=>{
-                sendSuccessResponse(res, ok, updateSuccess, null, data);
-            })
-            .catch((err)=>{
+            if(updated)
+                sendSuccessResponse(res, ok, updateSuccess, null, updated);
+            else
                 sendErrorResponse(res, badRequest, updateFail);
-            })
+        
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError);
         }
     }
