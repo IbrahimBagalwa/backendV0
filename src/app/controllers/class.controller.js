@@ -65,5 +65,24 @@ export default {
         } catch (error) {
             sendErrorResponse(res, internalServerError, interError)
         }
+    },
+    search: async (req,res)=>{
+        const {query} = req.body;
+        try {
+            const classSearch = await db.Classes.findAll({
+                where:{      
+                    [Op.or]:
+                    [
+                        {nom: {[Op.substring]: query}}
+                    ]
+                }
+            });
+            if(classSearch)
+                sendSuccessResponse(res, ok, recordFound, null, classSearch );
+            else 
+                sendErrorResponse(res, notFound, noRecordFound);
+        } catch (error) {
+            sendErrorResponse(res, internalServerError, interError)
+        }
     }
 }
