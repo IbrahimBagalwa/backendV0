@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Classes.hasMany(Cours, { as: "Cours", foreignKey: "idclass" });
+      Cours.belongsTo(models.Classes);
     }
   };
   Cours.init({
