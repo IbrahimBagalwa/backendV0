@@ -7,7 +7,7 @@ const route = express.Router();
 route
     .post('/create', validate.register, ctrl.register)
     .put('/update/:id', ctrl.update)
-    .get('/all-class', ctrl.all)
+    .get('/all', ctrl.all)
     .post('/search', ctrl.search)
 
 export default route;
