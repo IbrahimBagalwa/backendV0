@@ -6,10 +6,10 @@ import { errorMessages, successMessages } from '../helpers/messages.helpers';
 
 dotenv.config();
 const {created, ok} = successCodes;
-const {classCreate, updateSuccess} = successMessages;
+const {classCreate, updateSuccess,recordFound} = successMessages;
 
-const {internalServerError, badRequest} = errorCodes;
-const {interError, classCreateFail, updateFail} = errorMessages;
+const {internalServerError, badRequest, notFound} = errorCodes;
+const {interError, classCreateFail, updateFail,noRecordFound} = errorMessages;
 
 export default {
     register: async (req, res)=>{
@@ -49,6 +49,21 @@ export default {
         } catch (error) {
             console.log(error)
             sendErrorResponse(res, internalServerError, interError);
+        }
+    },
+    all: async (req,res)=>{
+        try {
+           const allClass = await db.Classes.findAll({
+                where: {
+                    datastatus:process.env.AP_DATASTATUS
+                }
+            })
+            if(allClass instanceof db.Classes)
+                sendSuccessResponse(res, ok, recordFound, null, allClass)
+            else
+                sendErrorResponse(res,notFound, noRecordFound)
+        } catch (error) {
+            sendErrorResponse(res, internalServerError, interError)
         }
     }
 }
