@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import Randomstring from 'randomstring';
 
-const encryptPassword = async (password)=>{
+export const encryptPassword = async (password)=>{
     // const _ ="hello"
     const saltRounds = 14;
     const salt = await bcrypt.genSaltSync(saltRounds);
@@ -10,17 +10,11 @@ const encryptPassword = async (password)=>{
     return hashedPassword
 };
 // console.log(encryptPassword("12222"))
-const isPasswordTrue = async (currentPassword, hashedPassword)=>{
+export const isPasswordTrue = async (currentPassword, hashedPassword)=>{
     const isPasswordChecked = await bcrypt.compareSync(currentPassword, hashedPassword);
     return isPasswordChecked;
 }
-const randomString = () => {
+export const randomString = () => {
     const _ = new Date().getMilliseconds()
     return new String(`IMG_${_}_`).concat(Randomstring.generate(13));
 };
-
-export default {
-    encryptPassword : encryptPassword,
-    isPasswordTrue : isPasswordTrue,
-    randomString : randomString
-}
