@@ -78,5 +78,62 @@ export default {
         } catch (error) {
             sendErrorResponse(res, internalServerError, interError);
         }
+    },
+    view: async (req, res)=>{
+        try {
+            const viewAll = await db.Student.findAll({
+                where: {
+                    datastatus: process.env.AP_ACTIVE
+                },
+                include: ['Classe']
+            })
+            if(viewAll){
+                sendSuccessResponse(res, ok, recordFound, null, viewAll)
+            }else{
+                sendErrorResponse(res, notFound, noRecordFound)
+            }
+        } catch (error) {
+            sendErrorResponse(res, internalServerError, interError)
+        }
+    },
+    update: async(req, res)=>{
+        const id = req.params.id;
+        const {nom, postnom, prenom, email, sexe, age, etatCivil, avatar, idClass, nomCompletTutaire, emailTutaire, phoneTutaire, datastatus} = req.body;
+        try {
+            const student =  await db.Student.findOne({
+                where: {id: id}
+            })
+            const isUpdated = await student.update({
+                nom: nom || student.nom,
+                postnom: postnom || student.postnom,
+                prenom: prenom || student.prenom,
+                email: email || student.email,
+                sexe: sexe || student.sexe,
+                age: age || student.age,
+                etatCivil: etatCivil || student.etatCivil,
+                avatar: avatar || student.avatar,
+                idClass: idClass || student.idClass,
+                nomCompletTutaire: nomCompletTutaire || student.nomCompletTutaire,
+                emailTutaire: emailTutaire || student.emailTutaire,
+                phoneTutaire: phoneTutaire || student.phoneTutaire,
+                datastatus: datastatus || student.datastatus
+            })
+            if(isUpdated) sendSuccessResponse(res, ok, updateSuccess, null, isUpdated);
+            else sendErrorResponse(res, badRequest, updateFail)
+        } catch (error) {
+            sendErrorResponse(res, internalServerError, interError)
+        }
+    },
+    viewById: async(req, res)=>{
+        const id = req.params.id;
+        try {
+            const isDone = await db.Student.findOne({
+                where: {id:id}
+            })
+            if(isDone)sendSuccessResponse(res, ok, recordFound, null, isDone);
+            else sendErrorResponse(res, notFound, noRecordFound);
+        } catch (error) {
+            sendErrorResponse(res, internalServerError, interError)
+        }
     }
 }
