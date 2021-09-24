@@ -3,8 +3,7 @@ import dotenv from 'dotenv';
 import { encryptPassword } from '../helpers/passwordEncDec.helper';
 import { sendSuccessResponse, sendErrorResponse } from '../helpers/responses.helpers';
 import { generateToken } from '../helpers/token.helper';
-import { SendSuccessResponse } from '../../../../todo-app/src/app/helpers/response.helpers';
-import { forbidden } from 'joi';
+
 
 dotenv.config();
 
