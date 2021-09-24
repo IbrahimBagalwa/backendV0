@@ -56,7 +56,7 @@ export default {
                     if(isLog){
                         bcrypt.compare(password, isLog.password, (err, resultat)=>{
                             if(resultat) sendSuccessResponse(res, ok, loginSucess, generateToken(JSON.stringify(isLog.ID)), isLog);
-                            else SendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password: req.body.password});
+                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password: req.body.password});
                         })
                     }
                 }else if(phone){
@@ -68,7 +68,7 @@ export default {
                     })
                     if(isLog){
                         bcrypt.compare(password, isLog.password, (err, result)=>{
-                            if(result)SendSuccessResponse(res, ok, loginSucess, generateToken(JSON.stringify(isLog.id)), isLog);
+                            if(result)sendSuccessResponse(res, ok, loginSucess, generateToken(JSON.stringify(isLog.id)), isLog);
                             else sendSuccessResponse(res, unAuthorized, loginFail, null, {phone: req.body.phone, password: req.body.password})
                         })
                     }else sendSuccessResponse(res, forbidden, loginFail, null, {email: req.body.email, password: req.body.password})
