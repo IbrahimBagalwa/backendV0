@@ -3,9 +3,12 @@ import dotenv from 'dotenv';
 import { encryptPassword } from '../helpers/passwordEncDec.helper';
 import { sendSuccessResponse, sendErrorResponse } from '../helpers/responses.helpers';
 import { generateToken } from '../helpers/token.helper';
+import { errorCodes, successCodes } from '../helpers/statusCodes.helper';
 
 
 dotenv.config();
+const {ok, created} = successCodes;
+const {badRequest, forbidden, notFound, internalServerError, unAuthorized } = errorCodes;
 
 export default {
     register: async (req, res)=>{
