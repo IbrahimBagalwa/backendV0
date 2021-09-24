@@ -4,7 +4,7 @@ import { encryptPassword } from '../helpers/passwordEncDec.helper';
 import { sendSuccessResponse, sendErrorResponse } from '../helpers/responses.helpers';
 import { generateToken } from '../helpers/token.helper';
 import { errorCodes, successCodes } from '../helpers/statusCodes.helper';
-import { successMessages } from '../helpers/messages.helpers';
+import { errorMessages, successMessages } from '../helpers/messages.helpers';
 
 
 dotenv.config();
@@ -12,6 +12,7 @@ const {ok, created} = successCodes;
 const {badRequest, forbidden, notFound, internalServerError, unAuthorized } = errorCodes;
 
 const {accountCreate, loginSucess, recordFound, updateSuccess } = successMessages;
+const {accountFailedToCreate, loginFail, noRecordFound, updateFail, interError} = errorMessages;
 
 export default {
     register: async (req, res)=>{
