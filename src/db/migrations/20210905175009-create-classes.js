@@ -11,6 +11,9 @@ module.exports = {
       nom: {
         type: Sequelize.STRING
       },
+      idOption: {
+        type: Sequelize.INTEGER
+      },
       titulaire: {
         type: Sequelize.STRING
       },
