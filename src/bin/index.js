@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const app = express();
-import routes from '../config/routes'
+import routes from '../config/routes/index.js'
 import {sendSuccessResponse} from '../app/helpers/responses.helpers.js';
 import {successCodes} from '../app/helpers/statusCodes.helper.js';
 import {successMessages} from '../app/helpers/messages.helpers.js';

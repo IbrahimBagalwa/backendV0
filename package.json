@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/bin/index.js",
   "scripts": {
-    "start": "node --exec babel-node ./src/bin/index.js",
+    "start": "nodemon --exec babel-node ./src/bin/index.js",
     "dev": "nodemon --exec babel-node ./src/bin/index.js"
   },
   "repository": {
@@ -18,13 +18,15 @@
   },
   "homepage": "https://github.com/IbrahimBagalwa/backendV0#readme",
   "dependencies": {
-    "@babel/cli": "^7.15.4",
+    "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-stage-0": "^7.8.3",
     "@babel/register": "^7.15.3",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "babel-node": "^0.0.1-security",
     "babel-plugin-add-module-exports": "^1.0.4",
