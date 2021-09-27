@@ -5,12 +5,19 @@ dotenv.config();
 
 export default {
     cotationParEleve: async (req, res)=>{
-        const {idStudent, idCours, idClass, typeCotation } = req.body;
+        const {idStudent, idCours, idClass, typeCotation,cotaion, periode } = req.body;
+
         try {
-            
+            const isCotation = await db.Cotation.create({
+                idClass,
+                idCours,
+                idStudent,
+                typeCotation,
+                cotaion,
+                periode
+            })
         } catch (error) {
             
         }
-
     }
 }
