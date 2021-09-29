@@ -30,6 +30,7 @@ export const errorMessages ={
     recordCreateFail: 'Échec de la création de l\'enregistrement, veuillez réessayer !',
     passwordFail:'Mot de passe incorrect, veuillez réessayer !!',
     phoneFail: 'Désolé !\nVous avez fourni un mauvais numero, veuillez réessayer !',
+    authorisationFail: 'Désolé !\nVous n\'avez pas d\'authorisation, veuillez réessayer !',
     fieldValidation : 'Veuillez remplir tous les champs obligatoires',
     duplicatedPhone: 'le numero entrer a déjà été pris !',
     duplicatedCourse: 'le cous entrer existe déjà!',
