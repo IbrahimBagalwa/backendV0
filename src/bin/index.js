@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import UploadedFile from 'express-fileupload';
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,17 @@ const {welcome} = successMessages;
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: '50mb' }));
+
+app.use(express.static('public'));
+app.use(UploadedFile())
+
+app.get('/resource/:resources', (req, res, next) => {
+    const rss = (req.params['resources']);
+    res
+        .status(200)
+        .sendFile(path.resolve(`/public/assets/${rss}`));
+    // next();
+})
 app.use("/api", routes);
 
 app.get('/', (req,res)=>{

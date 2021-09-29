@@ -1,6 +1,6 @@
 import db from '../models';
 import dotenv from 'dotenv';
-import { encryptPassword } from '../helpers/passwordEncDec.helper';
+import { encryptPassword, randomString } from '../helpers/passwordEncDec.helper';
 import { sendSuccessResponse, sendErrorResponse } from '../helpers/responses.helpers';
 import { generateToken } from '../helpers/token.helper';
 import { errorCodes, successCodes } from '../helpers/statusCodes.helper';
@@ -16,10 +16,21 @@ const {accountFailedToCreate, loginFail, noRecordFound, updateFail, interError} 
 
 export default {
     register: async (req, res)=>{
-        const {nom, postnom, prenom, email, sexe, age, etatCivil, avatar, idClass, nomCompletTutaire, emailTutaire, phoneTutaire} = req.body;
+        const {nom, postnom, prenom, email, sexe, age, etatCivil, idClass, nomCompletTutaire, emailTutaire, phoneTutaire} = req.body;
         const randPass = Math.round(Math.round() * (80000000) + 10000000);
         const password = await encryptPassword(randPass.toString());
+        
         try {
+            let filename = 'default.png';
+            if(req.files && req.files.avatar){
+                const img = req.files.avatar;
+                const _ = img.name;
+                const ext = _.substring(_.lastIndexOf(".")).toLowerCase();
+                filename = randomString().concat(ext);
+                img.mv('public/assets/'+ filename, err=>{
+                    if(err) filename = 'default.png'
+                })
+            }
             const isCreated = await db.Student.create({
                 nom, 
                 postnom, 
@@ -103,6 +114,7 @@ export default {
                 sendErrorResponse(res, notFound, noRecordFound)
             }
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError)
         }
     },

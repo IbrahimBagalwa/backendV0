@@ -20,7 +20,7 @@ export default {
         try {
             const createCourse = await db.Cours.create({
                 nom,
-                cotation,
+                ponderation,
                 ClassId,
                 titulaire,
                 heure:process.env.AP_UNACTIVE,
