@@ -34,6 +34,9 @@ const studentValidation = {
         }else{
             return next();
         }
+    },
+    login: async(req,res,next)=>{
+        
     }
 }
 

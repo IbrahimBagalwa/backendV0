@@ -12,7 +12,7 @@ const {ok, created} = successCodes;
 const {badRequest, forbidden, notFound, internalServerError, unAuthorized } = errorCodes;
 
 const {accountCreate, loginSucess, recordFound, updateSuccess } = successMessages;
-const {accountFailedToCreate, loginFail, noRecordFound, updateFail, interError} = errorMessages;
+const {accountFailedToCreate, loginFail, noRecordFound, updateFail, interError, fieldValidation} = errorMessages;
 
 export default {
     register: async (req, res)=>{
@@ -61,9 +61,10 @@ export default {
         }
     },
     login: async (req,res)=>{
-        const {password, phone, email} = req.body;
+        const {password, phoneTutaire, email} = req.body;
+        console.log(req.body)
         try {
-            if(email || phone && password){
+            if(email || phoneTutaire && password){
                 if(email){
                     const isLog = await db.Student.findOne({
                         where: {
@@ -73,26 +74,27 @@ export default {
                     })
                     if(isLog){
                         bcrypt.compare(password, isLog.password, (err, resultat)=>{
-                            if(resultat) sendSuccessResponse(res, ok, loginSucess, generateToken(JSON.stringify(isLog.ID)), isLog);
+                            if(resultat) sendSuccessResponse(res, ok, loginSucess, generateToken(JSON.stringify(isLog.id)), isLog);
                             else sendSuccessResponse(res, unAuthorized, loginFail, null, {email: req.body.email, password: req.body.password});
                         })
-                    }
-                }else if(phone){
+                    }else sendSuccessResponse(res, forbidden, loginFail, null, {email: req.body.email, password: req.body.password})
+                }else if(phoneTutaire){
                     const isLog =  await db.Student.findOne({
                         where:{
-                            phone: phone,
+                            phoneTutaire: phoneTutaire,
                             datastatus: process.env.AP_ACTIVE
                         }
                     })
                     if(isLog){
                         bcrypt.compare(password, isLog.password, (err, result)=>{
                             if(result)sendSuccessResponse(res, ok, loginSucess, generateToken(JSON.stringify(isLog.id)), isLog);
-                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {phone: req.body.phone, password: req.body.password})
+                            else sendSuccessResponse(res, unAuthorized, loginFail, null, {phoneTutaire: req.body.phoneTutaire, password: req.body.password})
                         })
-                    }else sendSuccessResponse(res, forbidden, loginFail, null, {email: req.body.email, password: req.body.password})
+                    }else sendSuccessResponse(res, forbidden, loginFail, null, {phoneTutaire: req.body.phoneTutaire, password: req.body.password})
                 }
-            }else sendErrorResponse(res, forbidden, fielValidation)
+            }else sendErrorResponse(res, forbidden, fieldValidation)
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError);
         }
     },
