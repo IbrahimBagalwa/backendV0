@@ -35,6 +35,7 @@ export const errorMessages ={
     duplicatedPhone: 'le numero entrer a déjà été pris !',
     duplicatedCourse: 'le cous entrer existe déjà!',
     duplicatedClass: 'la classe entrer existe déjà!',
+    duplicatedStudent: 'cette identite entree existe déjà!',
     duplicatedEmail: 'l\'email entrer a déjà été pris !',
     interError: 'Une Erreur interne est survenue',
     currentUser: 'Veillez vous connecter !'
