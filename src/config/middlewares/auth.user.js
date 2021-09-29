@@ -1,7 +1,11 @@
 import jwt from 'jsonwebtoken';
+import { errorMessages } from '../../app/helpers/messages.helpers';
 import { sendErrorResponse, sendSuccessResponse } from '../../app/helpers/responses.helpers';
+import { errorCodes } from '../../app/helpers/statusCodes.helper';
 import db from '../../app/models';
 
+const {unAuthorized}= errorCodes;
+const {currentUser, authorisationFail, roleAssignmentFail} = errorMessages;
 export function checkToken(req, res, next){
     const token = req.headers['authtoken'];
 
