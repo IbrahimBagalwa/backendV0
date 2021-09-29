@@ -1,6 +1,11 @@
 import joi from 'joi';
+import { errorMessages } from '../../app/helpers/messages.helpers';
 import { sendErrorResponse } from '../../app/helpers/responses.helpers';
+import { errorCodes } from '../../app/helpers/statusCodes.helper';
 import db from '../../app/models';
+
+const {badRequest, conflict} = errorCodes;
+const {duplicatedStudent} = errorMessages;
 
 const studentValidation = {
     register : async(req,res, next)=>{

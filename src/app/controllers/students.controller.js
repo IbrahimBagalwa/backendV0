@@ -17,6 +17,7 @@ const {accountFailedToCreate, loginFail, noRecordFound, updateFail, interError, 
 export default {
     register: async (req, res)=>{
         const {nom, postnom, prenom, email, sexe, age, etatCivil, idClass, nomCompletTutaire, emailTutaire, phoneTutaire} = req.body;
+        console.log(req.body)
         const randPass = Math.round(Math.round() * (80000000) + 10000000);
         const password = await encryptPassword(randPass.toString());
         
