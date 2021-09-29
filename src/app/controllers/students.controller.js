@@ -85,6 +85,10 @@ export default {
             sendErrorResponse(res, internalServerError, interError);
         }
     },
+    getCurrent: async(req, res) =>{
+        const user = req.user;
+        sendSuccessResponse(res,ok,loginSuccess,null, user);
+    },
     view: async (req, res)=>{
         try {
             const viewAll = await db.Student.findAll({

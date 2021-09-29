@@ -1,25 +1,7 @@
 {
-    "presets": [
-      ["@babel/preset-env",
-      {
-          "targets": {
-            "node": "15.14.0"
-          }
-        }]
-    ],
-    "plugins": [
-      [
-        "add-module-exports"
-      ],
-      [
-        "@babel/plugin-transform-runtime",
-        {
-          "regenerator": true
-        }
-      ],
-      [
-        "@babel/plugin-proposal-class-properties"
-      ]
-    ]
+  "presets": [
+      "env",
+      "stage-0"
+  ]
 }
   
