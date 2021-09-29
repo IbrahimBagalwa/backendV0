@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { sendErrorResponse } from '../../app/helpers/responses.helpers';
+import { sendErrorResponse, sendSuccessResponse } from '../../app/helpers/responses.helpers';
 import db from '../../app/models';
 
 export function checkToken(req, res, next){
@@ -13,7 +13,13 @@ export function checkToken(req, res, next){
         }else{
             const isConnect = await db.Student.findOne({
                 where: {id: payload.id }
-            })
+            });
+            if(isConnect){
+                req.user = user;
+                next();
+            }else{
+                sendErrorResponse(res, unAuthorized, authorisationFail)
+            }
         }
     })
 }
