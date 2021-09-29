@@ -36,4 +36,5 @@ export const errorMessages ={
     duplicatedClass: 'la classe entrer existe déjà!',
     duplicatedEmail: 'l\'email entrer a déjà été pris !',
     interError: 'Une Erreur interne est survenue',
+    currentUser: 'Veillez vous connecter !'
 }
