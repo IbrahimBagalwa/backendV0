@@ -23,3 +23,11 @@ export function checkToken(req, res, next){
         }
     })
 }
+export function checkIsAdmin(req, res, next){
+    const isAdmin = req.user;
+    if(isAdmin.role === 1){
+        next()
+    }else{
+        sendErrorResponse(res, unAuthorized, roleAssignmentFail)
+    }
+};
