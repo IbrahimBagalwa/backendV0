@@ -32,7 +32,7 @@ export default {
                     if(err) filename = 'default.png'
                 })
             }
-            const isCreated = await db.Student.create({
+            const isCreated = await db.Students.create({
                 nom, 
                 postnom, 
                 prenom, 
@@ -41,7 +41,7 @@ export default {
                 sexe, 
                 age, 
                 etatCivil, 
-                avatar,
+                avatar:filename,
                 idClass, 
                 nomCompletTutaire, 
                 emailTutaire, 
@@ -51,12 +51,14 @@ export default {
                 modifiedby: process.env.AP_UNACTIVE,
                 deleteby: process.env.AP_UNACTIVE
             })
+            console.log(isCreated)
             if(isCreated){
                 console.log(randPass);
                 isCreated.password = randPass;
                 sendSuccessResponse(res, created, accountCreate, generateToken(JSON.stringify(isCreated.id)), isCreated)
             }else sendErrorResponse(res, badRequest, accountFailedToCreate)
         } catch (error) {
+            console.log(error)
             sendErrorResponse(res, internalServerError, interError)
             
         }
@@ -67,7 +69,7 @@ export default {
         try {
             if(email || phoneTutaire && password){
                 if(email){
-                    const isLog = await db.Student.findOne({
+                    const isLog = await db.Students.findOne({
                         where: {
                             email: email,
                             datastatus: process.env.AP_ACTIVE
@@ -80,7 +82,7 @@ export default {
                         })
                     }else sendSuccessResponse(res, forbidden, loginFail, null, {email: req.body.email, password: req.body.password})
                 }else if(phoneTutaire){
-                    const isLog =  await db.Student.findOne({
+                    const isLog =  await db.Students.findOne({
                         where:{
                             phoneTutaire: phoneTutaire,
                             datastatus: process.env.AP_ACTIVE
@@ -105,7 +107,7 @@ export default {
     },
     view: async (req, res)=>{
         try {
-            const viewAll = await db.Student.findAll({
+            const viewAll = await db.Students.findAll({
                 where: {
                     datastatus: process.env.AP_ACTIVE
                 },
@@ -125,7 +127,7 @@ export default {
         const id = req.params.id;
         const {nom, postnom, prenom, email, sexe, age, etatCivil, avatar, idClass, nomCompletTutaire, emailTutaire, phoneTutaire, datastatus} = req.body;
         try {
-            const student =  await db.Student.findOne({
+            const student =  await db.Students.findOne({
                 where: {id: id}
             })
             const isUpdated = await student.update({
@@ -152,7 +154,7 @@ export default {
     viewById: async(req, res)=>{
         const id = req.params.id;
         try {
-            const isDone = await db.Student.findOne({
+            const isDone = await db.Students.findOne({
                 where: {id:id}
             })
             if(isDone)sendSuccessResponse(res, ok, recordFound, null, isDone);
