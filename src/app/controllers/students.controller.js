@@ -58,7 +58,7 @@ export default {
                 sendSuccessResponse(res, created, accountCreate, generateToken(JSON.stringify(isCreated.id)), isCreated)
             }else sendErrorResponse(res, badRequest, accountFailedToCreate)
         } catch (error) {
-            console.log(error)
+            console.log(error,"ieieieieieiencjncdjnd")
             sendErrorResponse(res, internalServerError, interError)
             
         }

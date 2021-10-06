@@ -4,7 +4,7 @@ import { sendErrorResponse } from '../../app/helpers/responses.helpers';
 import { errorCodes } from '../../app/helpers/statusCodes.helper';
 import db from '../../app/models';
 
-const {badRequest, conflict} = errorCodes;
+const {conflict} = errorCodes;
 const {duplicatedStudent} = errorMessages;
 
 const studentValidation = {
@@ -25,7 +25,7 @@ const studentValidation = {
         });
         const {error} = schema.validate(req.body);
         if(error){
-            return sendErrorResponse(res, badRequest, `${error.details[0].message}`)
+            return sendErrorResponse(res, conflict, `${error.details[0].message}`)
         }
         const checkIdentity = await db.Students.findOne({
             where: {
